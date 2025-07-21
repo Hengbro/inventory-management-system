@@ -26,8 +26,12 @@
                             <h3 class="card-title">
                                 {{ __('Product Image') }}
                             </h3>
-
-                            <img class="img-account-profile mb-2" src="{{ asset('assets/img/products/default.webp') }}" alt="" id="image-preview" />
+                            <img
+                                    class="img-account-profile mb-2"
+                                    src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/img/products/default.webp') }}"
+                                    id="image-preview"
+                                >
+                            <!-- <img class="img-account-profile mb-2" src="{{ asset('assets/img/products/default.webp') }}" alt="" id="image-preview" /> -->
                         </div>
                     </div>
                 </div>

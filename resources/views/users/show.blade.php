@@ -27,11 +27,14 @@
                                     {{ __('Gambar Profil') }}
                                 </h3>
 
-                                <img id="image-preview"
+                                <img class="img-account-profile mb-2" src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/img/demo/user-placeholder.svg') }}" alt="" id="image-preview" />
+
+                                <!-- <img id="image-preview"
                                      class="img-account-profile mb-2"
                                      src="{{ asset('assets/img/demo/user-placeholder.svg') }}"
                                      alt=""
-                                >
+                                > -->
+    
                             </div>
                         </div>
                     </div>
