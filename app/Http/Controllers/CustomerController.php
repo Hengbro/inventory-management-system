@@ -10,7 +10,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('is_active', 1)->get();
 
         return view('customers.index', [
             'customers' => $customers
@@ -91,17 +91,36 @@ class CustomerController extends Controller
             ->with('success', 'Customer has been updated!');
     }
 
+    // public function destroy(Customer $customer)
+    // {
+    //     if($customer->photo)
+    //     {
+    //         unlink(public_path('storage/customers/') . $customer->photo);
+    //     }
+
+    //     $customer->delete();
+
+    //     return redirect()
+    //         ->back()
+    //         ->with('success', 'Customer has been deleted!');
+    // }
     public function destroy(Customer $customer)
     {
-        if($customer->photo)
-        {
-            unlink(public_path('storage/customers/') . $customer->photo);
+        // Hapus foto jika ada
+        if ($customer->photo) {
+            $photoPath = public_path('storage/customers/') . $customer->photo;
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+            $customer->photo = null;
         }
 
-        $customer->delete();
+        // Tandai sebagai nonaktif, bukan dihapus
+        $customer->is_active = 0;
+        $customer->save();
 
         return redirect()
             ->back()
-            ->with('success', 'Customer has been deleted!');
+            ->with('success', 'Customer has been delete');
     }
 }
